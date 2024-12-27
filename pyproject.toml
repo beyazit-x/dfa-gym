@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "dfa-gym"
+version = "0.0.1"
+description = "Library for wrapping gymnasium environments with dfa tasks (pull requests welcome)."
+authors = ["Beyazit Yalcinkaya <beyazit@berkeley.edu>"]
+license = "MIT"
+readme = "README.md"
+packages = [
+    { include = "dfa_gym" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+gymnasium = "^1.0.0"
+dfa-samplers = "^0.1.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
