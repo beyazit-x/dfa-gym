@@ -1,8 +1,6 @@
 from dfa_gym import DFAEnv
 
 if __name__ == "__main__":
-    import numpy as np
-    n_tokens = 10
     dfa_env = DFAEnv()
     obs, info = dfa_env.reset()
     for _ in range(1000):
