@@ -1,6 +1,9 @@
-from dfa_gym import DFAEnv
+import gymnasium as gym
+
+from dfa_gym import DFAEnv, DFAWrapper
 
 if __name__ == "__main__":
+    # Test DFAEnv
     dfa_env = DFAEnv()
     obs, info = dfa_env.reset()
     for _ in range(1000):
@@ -9,3 +12,15 @@ if __name__ == "__main__":
         if done:
             break
     dfa_env.close()
+    # Test DFAWrapper
+    env = gym.make("CartPole-v1")
+    wrapped_env = DFAWrapper(env)
+    observation, info = wrapped_env.reset()
+    done = False
+    i = 0
+    while not done:
+        i += 1
+        action = wrapped_env.action_space.sample()
+        observation, reward, terminated, truncated, info = wrapped_env.step(action)
+        done = terminated or truncated
+    wrapped_env.close()
