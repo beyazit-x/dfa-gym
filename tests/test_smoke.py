@@ -4,7 +4,7 @@ from dfa_gym import DFAEnv, DFAWrapper
 
 if __name__ == "__main__":
     # Test DFAEnv
-    dfa_env = DFAEnv()
+    dfa_env = gym.make("DFAEnv-v1")
     obs, info = dfa_env.reset()
     for _ in range(1000):
         action = dfa_env.action_space.sample()  # Random action
@@ -13,8 +13,8 @@ if __name__ == "__main__":
             break
     dfa_env.close()
     # Test DFAWrapper
-    env = gym.make("CartPole-v1")
-    wrapped_env = DFAWrapper(env)
+    env_cls = "CartPole-v1"
+    wrapped_env = DFAWrapper(env_cls)
     observation, info = wrapped_env.reset()
     done = False
     i = 0
