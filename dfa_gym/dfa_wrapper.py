@@ -6,7 +6,9 @@ from dfa_samplers import RADSampler
 __all__ = ["DFAWrapper"]
 
 class DFAWrapper(gym.Wrapper):
-    def __init__(self, env, sampler=None, label_f=None, r_agg_f=None):
+    def __init__(self, env_cls, sampler=None, label_f=None, r_agg_f=None, env_cls_kwargs=None):
+        if env_cls_kwargs is not None: env = env_cls(**env_cls_kwargs)
+        else: env = env_cls()
         super().__init__(env)
 
         self.sampler = sampler if sampler is not None else RADSampler()
@@ -39,7 +41,8 @@ class DFAWrapper(gym.Wrapper):
         obs, reward, done, truncated, info = self.env.step(action)
 
         symbol = self.label_f(obs)
-        self.dfa = self.dfa.advance([symbol]).minimize()
+        if symbol is not None:
+            self.dfa = self.dfa.advance([symbol]).minimize()
 
         dfa_obs = self._get_dfa_obs()
         obs = {"obs": obs, "dfa_obs": dfa_obs}
